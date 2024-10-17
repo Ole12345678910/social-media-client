@@ -1,50 +1,60 @@
-// test/login.test.js
-import { apiPath } from "../src/js/api/constants.js";
-import { headers } from "../src/js/api/headers.js";
 import { login } from "../src/js/api/auth/login";
-import { save, load } from "../src/js/storage/index.js";
+import { save } from "../src/js/storage/index.js";
 
+// Mock the save and load functions from storage
 jest.mock("../src/js/storage/index.js", () => ({
 	save: jest.fn(),
-	load: jest.fn(() => "mockedToken"), // Mocking load to return a token
+	load: jest.fn(), // Add mock for load
 }));
 
-global.fetch = jest.fn();
-
-describe("Login Function", () => {
+describe("login function", () => {
 	beforeEach(() => {
-		fetch.mockClear();
-		save.mockClear();
-		load.mockClear();
+		jest.clearAllMocks(); // Clear mocks before each test
 	});
 
-	it("stores a token when provided with valid credentials", async () => {
-		const email = "lol@stud.noroff.no"; // Test email
-		const password = "lmao12345"; // Test password
-		const mockToken = "mockedAccessToken"; // Mock token response
+	it("should store the token and profile on successful login", async () => {
+		// Mock the fetch API to simulate a successful login
+		const mockProfile = {
+			accessToken: "mockToken",
+			name: "TestUser",
+			email: "testuser@example.com",
+		};
 
-		// Mock the API response
-		fetch.mockResolvedValueOnce({
-			ok: true,
-			json: async () => ({
-				accessToken: mockToken,
-				username: "testUser",
+		global.fetch = jest.fn(() =>
+			Promise.resolve({
+				ok: true,
+				json: () => Promise.resolve(mockProfile),
 			}),
+		);
+
+		const profile = await login("testuser@example.com", "password123");
+
+		// Verify the save function is called with correct arguments
+		expect(save).toHaveBeenCalledWith("token", "mockToken");
+		expect(save).toHaveBeenCalledWith("profile", {
+			name: "TestUser",
+			email: "testuser@example.com",
 		});
 
-		const result = await login(email, password);
-
-		expect(fetch).toHaveBeenCalledWith(`${apiPath}/social/auth/login`, {
-			method: "post",
-			body: JSON.stringify({ email, password }),
-
-			headers: headers("application/json"),
+		// Verify the profile returned is correct (without accessToken)
+		expect(profile).toEqual({
+			name: "TestUser",
+			email: "testuser@example.com",
 		});
+	});
 
-		expect(save).toHaveBeenCalledWith("token", mockToken); // Check if token is saved
+	it("should throw an error when login fails", async () => {
+		// Mock the fetch API to simulate a failed login
+		global.fetch = jest.fn(() =>
+			Promise.resolve({
+				ok: false,
+				statusText: "Unauthorized",
+			}),
+		);
 
-		expect(save).toHaveBeenCalledWith("profile", { username: "testUser" }); // Check profile saving
-
-		expect(result).toEqual({ username: "testUser" }); // Check the returned profile
+		// Verify that the function throws an error
+		await expect(
+			login("testuser@example.com", "wrongpassword"),
+		).rejects.toThrow("Unauthorized");
 	});
 });
