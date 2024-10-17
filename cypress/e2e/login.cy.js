@@ -75,5 +75,5 @@ describe("Login Functionality", () => {
 				"Either your username was not found or your password is incorrect",
 			);
 		});
-	}
+	});
 });
