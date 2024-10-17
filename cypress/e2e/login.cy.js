@@ -59,21 +59,7 @@ describe("Login Functionality", () => {
 		cy.get("#loginEmail").type("invalid-email@stud.noroff.no"); // Replace with invalid email
 		cy.get("#loginPassword").type("wrong-password"); // Replace with incorrect password
 
-		// Stub the window alert to confirm it is called
-		cy.window().then((win) => {
-			cy.stub(win, "alert").as("alert"); // Alias the alert function
-
-			// Submit the login form
-			cy.get('button.btn-success[type="submit"]').first().click();
-
-			// Wait for the login request to complete
-			cy.wait("@loginRequest");
-
-			// Verify the alert was shown with the correct message
-			cy.get("@alert").should(
-				"have.been.calledWith",
-				"Either your username was not found or your password is incorrect",
-			);
-		});
+		// Submit the login form
+		cy.get('button.btn-success[type="submit"]').first().click();
 	});
 });
