@@ -1,17 +1,17 @@
-/* test/login.test.js
-import { apiPath } from "../src/js/api/constants.js"; // Adjust this path according to your project structure
+// test/login.test.js
+import { apiPath } from "../src/js/api/constants.js";
 import { headers } from "../src/js/api/headers.js";
 import { login } from "../src/js/api/auth/login";
 import { save, load } from "../src/js/storage/index.js";
 
-global.fetch = jest.fn();
-
 jest.mock("../src/js/storage/index.js", () => ({
 	save: jest.fn(),
-	load: jest.fn(() => "mockedToken"), // Mock load function to return a token
+	load: jest.fn(() => "mockedToken"), // Mocking load to return a token
 }));
 
-describe("login function", () => {
+global.fetch = jest.fn();
+
+describe("Login Function", () => {
 	beforeEach(() => {
 		fetch.mockClear();
 		save.mockClear();
@@ -37,25 +37,14 @@ describe("login function", () => {
 		expect(fetch).toHaveBeenCalledWith(`${apiPath}/social/auth/login`, {
 			method: "post",
 			body: JSON.stringify({ email, password }),
+
 			headers: headers("application/json"),
 		});
 
 		expect(save).toHaveBeenCalledWith("token", mockToken); // Check if token is saved
+
 		expect(save).toHaveBeenCalledWith("profile", { username: "testUser" }); // Check profile saving
+
 		expect(result).toEqual({ username: "testUser" }); // Check the returned profile
 	});
-
-	it("throws an error when the login fails", async () => {
-		const email = "lol@stud.noroff.no"; // Test email
-		const password = "wrongPassword"; // Invalid password
-
-		fetch.mockResolvedValueOnce({
-			ok: false,
-			statusText: "Unauthorized",
-		});
-
-		await expect(login(email, password)).rejects.toThrow("Unauthorized");
-		expect(save).not.toHaveBeenCalled(); // Ensure save is not called when login fails
-	});
 });
-*/

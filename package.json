@@ -11,7 +11,9 @@
     "format": "prettier --log-level warn --write \"**/*.{js,css,md}\"",
     "posttest": "npm run format",
     "test": "jest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -26,10 +28,13 @@
   "author": "Noroff",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.25.8",
     "@babel/preset-env": "^7.25.8",
     "@eslint/js": "^9.12.0",
     "babel-jest": "^29.7.0",
+    "cypress": "^13.15.0",
     "eslint": "^9.12.0",
+    "eslint-plugin-cypress": "^4.0.0",
     "eslint-plugin-jest": "^28.8.3",
     "globals": "^15.11.0",
     "husky": "^9.1.6",
