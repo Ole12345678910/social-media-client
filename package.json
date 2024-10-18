@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "sass src/scss:dist/css",
-    "start": "sass --watch src/scss:dist/css & live-server --port=8080",
+    "start": "concurrently \"sass --watch src/scss:dist/css\" \"live-server --port=8080 --ignore=dist/css\"",
     "lint": "eslint .",
     "format": "prettier --log-level warn --write \"**/*.{js,css,md}\"",
     "posttest": "npm run format",
@@ -49,7 +49,7 @@
     "mrm-task-lint-staged": "^7.1.22",
     "mrm-task-prettier": "^5.1.22",
     "prettier": "^3.3.3",
-    "sass": "^1.54.8",
+    "sass": "^1.80.2",
     "start-server-and-test": "^2.0.8"
   },
   "dependencies": {

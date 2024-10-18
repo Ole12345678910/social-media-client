@@ -6,12 +6,10 @@ jest.mock("../src/js/storage/index.js", () => ({
 	save: jest.fn(),
 	load: jest.fn(), // Add mock for load
 }));
-
 describe("login function", () => {
 	beforeEach(() => {
 		jest.clearAllMocks(); // Clear mocks before each test
 	});
-
 	it("should store the token and profile on successful login", async () => {
 		// Mock the fetch API to simulate a successful login
 		const mockProfile = {
