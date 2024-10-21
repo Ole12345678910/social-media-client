@@ -30,7 +30,7 @@ This project focuses on setting up a solid workflow for developing the social me
 
 - **Run unit tests with Jest**:
   ```bash
-  npm start
+  npm test
   ```
 
 - **Open Cypress for end-to-end tests**:
