@@ -5,16 +5,16 @@
 
 ## Overview
 
-This project focuses on setting up a solid workflow for developing the social media application. Below are the tools and packages used to improve code quality and make the development process smoother.
+This project sets up a development workflow for a social media application. The goal is to ensure high-quality code and efficient testing using various tools and packages.
 
 ## Tools Installed
 
-- **ESLint**: Automatically checks for code issues and keeps code consistent.
-- **Prettier**: Formats the code to maintain a clean and unified style.
-- **Husky**: Blocks commits if there are issues, ensuring only clean code gets committed.
-- **Jest**: Used for running unit tests (e.g., testing login and logout functions).
-- **Cypress**: End-to-end testing tool for testing how the app works in a browser.
-- **SASS**: Used for compiling SCSS files into CSS for better styling management.
+- **ESLint**: Automatically checks for code issues.
+- **Prettier**: Formats the code for a consistent style.
+- **Husky**: Prevents commits if there are issues, making sure only clean code is committed.
+- **Jest**: Used for running unit tests.
+- **Cypress**: End-to-end testing tool to simulate user interactions.
+- **SASS**: Compiles SCSS files into CSS for easier styling.
 
 ## NPM Scripts
 
@@ -30,25 +30,34 @@ This project focuses on setting up a solid workflow for developing the social me
 
 - **Run unit tests with Jest**:
   ```bash
+  npm test
+  ```
+
+- **Run the live server and watch for SASS changes**:
+  ```bash
   npm start
   ```
 
-- **Open Cypress for end-to-end tests**:
+- **Run Cypress end-to-end tests headlessly**:
   ```bash
-  npm run cy:open
+  npm run cy:test:run
+  ```
+
+- **Open Cypress Test Runner**:
+  ```bash
+  npm run cy:test:open
   ```
 
 ## Workflow Setup
 
-- All development happens in the `workflow` branch. 
-- **Husky** is configured to stop commits if there are any code issues (like failed tests or formatting problems). Make sure to fix errors before committing.
-- To bypass Husky issues, run the following commands before trying to commit:
+- Development happens in the `workflow` branch.
+- **Husky** is set up to prevent commits if there are issues with linting or tests. If you're blocked from committing, run the following:
   ```bash
   npm run format
-  npm start
+  npm test
   ```
 
-  Then:
+  Then try committing again:
   ```bash
   git add .
   git commit -m "your message"
@@ -56,11 +65,10 @@ This project focuses on setting up a solid workflow for developing the social me
 
 ## Summary of Installed Packages
 
-- **ESLint**: Enforces code style rules.
-- **Prettier**: Automatically formats code.
-- **Husky**: Runs checks before allowing commits.
+- **ESLint**: Enforces code quality rules.
+- **Prettier**: Auto-formats code for consistency.
+- **Husky**: Runs pre-commit checks.
 - **Jest**: For unit testing.
 - **Cypress**: For end-to-end testing.
-
 
 ---
