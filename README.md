@@ -14,7 +14,6 @@ This project sets up a development workflow for a social media application. The 
 - **Husky**: Prevents commits if there are issues, making sure only clean code is committed.
 - **Jest**: Used for running unit tests.
 - **Cypress**: End-to-end testing tool to simulate user interactions.
-- **SASS**: Compiles SCSS files into CSS for easier styling.
 
 ## NPM Scripts
 
