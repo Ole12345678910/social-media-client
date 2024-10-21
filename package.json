@@ -8,7 +8,7 @@
     "build": "sass src/scss:dist/css",
     "start": "concurrently \"sass --watch src/scss:dist/css\" \"live-server --port=8080 --ignore=dist/css\"",
     "lint": "eslint .",
-    "format": "prettier --log-level warn --write \"**/*.{js,css,md}\"",
+    "format": "prettier --log-level warn --write \"**/*.{js,css}\"",
     "posttest": "npm run format",
     "test": "jest",
     "prepare": "husky",
